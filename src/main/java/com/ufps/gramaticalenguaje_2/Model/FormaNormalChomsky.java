@@ -279,7 +279,7 @@ public class FormaNormalChomsky {
         
         }
         
-        s += "}," + this.sigmaActual + "}";
+        s += "}," + this.sigmaActual + "} \n";
         
         return s;
         

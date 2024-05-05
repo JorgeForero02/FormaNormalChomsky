@@ -142,44 +142,53 @@ public class GestorDeGramaticas {
     
     public ListaCD<String> comprobaciones(Gramatica gramatica)
     {
-        
-        if(gramatica.getSigmas().getSize() != 0)
+        try{
+            
+            if(gramatica.getSigmas().getSize() != 0)
+            {
+
+                ListaCD<String> nueva = new ListaCD();
+                gramatica.setSigmas(nueva);
+
+            }
+
+            gramatica.variablesGeneradoras();
+            gramatica.comprobarInutiles();
+            gramatica.comprobarProducciones();
+            gramatica.comprobarInalcanzables();
+
+            boolean cond1;
+            boolean cond2;
+            int ciclos = 0;
+
+            do
+            {
+
+                cond1 = gramatica.eliminandoUnitarias();
+                cond2 = gramatica.eliminandoVacios();
+                ciclos++;
+
+            }while(cond1 && cond2 && ciclos < 100);
+
+            if(ciclos == 100)
+            {
+
+                throw new RuntimeException("Gramatica ambigua por favor verificarla o ingresar otra.");
+
+            }
+
+            ListaCD<String> aux = gramatica.getSigmas();
+            aux.insertarFinal(gramatica.toFormalizado());
+            gramatica.setFNC(new FormaNormalChomsky(gramatica));
+
+            return aux;
+            
+        }catch(Exception e)
         {
         
-            ListaCD<String> nueva = new ListaCD();
-            gramatica.setSigmas(nueva);
+            throw new RuntimeException("Ha ocurrido un error durante la depuración por favor asegurese de ingresar todos los valores necesarios.");
         
         }
-        
-        gramatica.variablesGeneradoras();
-        gramatica.comprobarInutiles();
-        gramatica.comprobarProducciones();
-        gramatica.comprobarInalcanzables();
-        
-        boolean cond1;
-        boolean cond2;
-        int ciclos = 0;
-        
-        do
-        {
-        
-            cond1 = gramatica.eliminandoUnitarias();
-            cond2 = gramatica.eliminandoVacios();
-            ciclos++;
-        
-        }while(cond1 && cond2 && ciclos < 100);
-        
-        if(ciclos == 100)
-        {
-        
-            throw new RuntimeException("Gramatica ambigua por favor verificarla o ingresar otra.");
-        
-        }
-        
-        ListaCD<String> aux = gramatica.getSigmas();
-        aux.insertarFinal(gramatica.toFormalizado());
-        
-        return aux;
         
     }
     

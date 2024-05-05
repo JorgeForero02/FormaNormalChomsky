@@ -244,7 +244,7 @@ public class GramaticaController {
         }else
         {
         
-            this.cboProducciones.getItems().clear();          
+            this.cboProducciones.getItems().clear();
             
             if(this.cboGramatica.getValue() != null)
             {
@@ -295,6 +295,7 @@ public class GramaticaController {
             this.txtNiveles.setDisable(true);
             this.tabFNC.setDisable(true);
             this.btnGenerarPalabrasFNC.setDisable(true);
+            this.cboProduccionesFNC.setDisable(true);
         
         }catch(Exception e)
         {
@@ -336,6 +337,7 @@ public class GramaticaController {
             this.txtNiveles.setDisable(true);
             this.tabFNC.setDisable(true);
             this.btnGenerarPalabrasFNC.setDisable(true);
+            this.cboProduccionesFNC.setDisable(true);
             
         }catch(Exception e)
         {
@@ -368,6 +370,7 @@ public class GramaticaController {
             this.txtNiveles.setDisable(true);
             this.tabFNC.setDisable(true);
             this.btnGenerarPalabrasFNC.setDisable(true);
+            this.cboProduccionesFNC.setDisable(true);
         
         }catch(Exception e)
         {
@@ -403,6 +406,7 @@ public class GramaticaController {
             this.txtNiveles.setDisable(false);
             this.tabFNC.setDisable(false);
             this.btnGenerarPalabrasFNC.setDisable(true);
+            this.cboProduccionesFNC.setDisable(true);
             
         }catch(Exception e)
         {
@@ -440,6 +444,7 @@ public class GramaticaController {
             this.btnDefinirInicial.setDisable(true);
             this.tabFNC.setDisable(true);
             this.btnGenerarPalabrasFNC.setDisable(true);
+            this.cboProduccionesFNC.setDisable(true);
         
         }catch(Exception e)
         {
@@ -466,7 +471,8 @@ public class GramaticaController {
             }
             
             actualizarCBOGramaticas(this.cboGramatica, 1);
-            actualizarCBOGramaticas(this.cboGramatica,1);
+            actualizarCBOGramaticaFNC();
+            
             actualizarTablas(gramatica,0);
         
         }catch(Exception e)
@@ -478,6 +484,7 @@ public class GramaticaController {
         
         this.btnPalabras.setDisable(true);
         this.txtNumeroPalabras.setDisable(true);
+        this.cboProduccionesFNC.setDisable(true);
 
     }
     
@@ -563,6 +570,7 @@ public class GramaticaController {
             this.txtNumeroPalabras.setDisable(true);
             this.txtNiveles.setDisable(true);
             this.tabFNC.setDisable(true);
+            this.cboProduccionesFNC.setDisable(true);
             this.btnGenerarPalabrasFNC.setDisable(true);
         
         }catch(Exception e)
@@ -615,6 +623,7 @@ public class GramaticaController {
             this.txtNumeroPalabras.setDisable(true);
             this.txtNiveles.setDisable(true);
             this.tabFNC.setDisable(true);
+            this.cboProduccionesFNC.setDisable(true);
             this.btnGenerarPalabrasFNC.setDisable(true);
             
         }catch(Exception e)
@@ -660,6 +669,7 @@ public class GramaticaController {
             this.txtNumeroPalabras.setDisable(true);
             this.txtNiveles.setDisable(true);
             this.tabFNC.setDisable(true);
+            this.cboProduccionesFNC.setDisable(true);
             this.btnGenerarPalabrasFNC.setDisable(true);
         
         }catch(Exception e)
@@ -767,6 +777,7 @@ public class GramaticaController {
             this.txtNumeroPalabras.setDisable(true);
             this.txtNiveles.setDisable(true);
             this.tabFNC.setDisable(true);
+            this.cboProduccionesFNC.setDisable(true);
             this.btnGenerarPalabrasFNC.setDisable(true);
             
         }catch(Exception e)
@@ -824,6 +835,7 @@ public class GramaticaController {
             this.txtNumeroPalabras.setDisable(true);
             this.txtNiveles.setDisable(true);
             this.tabFNC.setDisable(true);
+            this.cboProduccionesFNC.setDisable(true);
             this.btnGenerarPalabrasFNC.setDisable(true);
             
         }catch(Exception e)
@@ -887,6 +899,7 @@ public class GramaticaController {
             this.txtNumeroPalabras.setDisable(true);
             this.txtNiveles.setDisable(true);
             this.tabFNC.setDisable(true);
+            this.cboProduccionesFNC.setDisable(true);
             this.btnGenerarPalabrasFNC.setDisable(true);
             
         }catch(Exception e)
@@ -904,6 +917,7 @@ public class GramaticaController {
         Gramatica gramatica = this.cboGramatica.getValue();
         this.cboGramaticaFNC.setValue(gramatica);
         actualizarCBOGramaticas(cboInicial, 2);
+        actualizarCBOGramaticaFNC();
         
         if(gramatica != null)
         {
@@ -933,6 +947,9 @@ public class GramaticaController {
         this.btnPalabras.setDisable(true);
         this.txtNumeroPalabras.setDisable(true);
         this.txtNiveles.setDisable(true);
+        this.tabFNC.setDisable(true);
+        this.cboProduccionesFNC.setDisable(true);
+        this.btnGenerarPalabrasFNC.setDisable(true);
         
     }
     
@@ -1143,6 +1160,7 @@ public class GramaticaController {
         {
         
             Gramatica gramatica = this.cboGramaticaFNC.getValue();
+            actualizarCBOGramaticaFNC();
         
             if(gramatica != null)
             {
@@ -1186,6 +1204,43 @@ public class GramaticaController {
             
         }
 
+    }
+    
+    public void actualizarCBOGramaticaFNC()
+    {
+        
+        Gramatica gramatica = this.cboGramatica.getValue();
+        
+        if(gramatica != null)
+        {
+        
+            this.cboProduccionesFNC.getItems().clear();
+
+            ListaCD<String> variables;  
+            variables = gramatica.getFNC().getVariablesNoTerminales();
+
+            for(String s : variables)
+            {
+                
+                this.cboProduccionesFNC.getItems().add(s);
+
+            } 
+            
+            if (!this.cboProducciones.getItems().isEmpty()) {
+                this.cboProducciones.getSelectionModel().selectFirst();
+            }else
+            {
+
+                this.cboProducciones.setValue(null);
+
+            }
+
+            sincronizarVariableInicial(gramatica);
+
+            actualizarTablas(gramatica,1);   
+        
+        }       
+    
     }
 
     @FXML
@@ -1273,16 +1328,18 @@ public class GramaticaController {
             
             }
             
-            this.txtSimboloTerminal.clear();
-            this.txtSimboloVariable.clear();
-            
             ListaCD<String> ajustes = gramaticas.generarChosmky(gramatica, this.txtSimboloVariable.getText(), this.txtSimboloTerminal.getText());
         
-            actualizarTablas(gramatica,1); 
+            actualizarCBOGramaticaFNC();
+            actualizarTablas(gramatica,1);
+            
             this.txtPalabras.appendText(ajustes.toString());
             
             this.btnGenerarPalabrasFNC.setDisable(false);
             this.cboProduccionesFNC.setDisable(false);
+           
+            this.txtSimboloTerminal.clear();
+            this.txtSimboloVariable.clear();
             
             mostrarAlerta("Chomsky se ha generado correctamente!"); 
             

@@ -233,7 +233,17 @@ public class Gramatica {
 
         for (Character c : this.variablesTerminales) {
 
-            verificacion.put(c, Boolean.FALSE);
+            if(c == 'λ')
+            {
+            
+                verificacion.put(c, Boolean.TRUE);
+            
+            }else
+            {
+            
+                verificacion.put(c, Boolean.FALSE);
+            
+            }    
 
         }
 
@@ -1119,7 +1129,7 @@ public class Gramatica {
         
         }
         
-        s += "}," + "ς" + this.sigmas.getSize() + "}";
+        s += "}," + "ς" + this.sigmas.getSize() + "} \n";
         
         return s;
     
