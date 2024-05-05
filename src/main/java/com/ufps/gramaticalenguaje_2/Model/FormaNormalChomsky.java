@@ -160,7 +160,7 @@ public class FormaNormalChomsky {
         String nuevaVariable;
         String clave = variable;
 
-        for (int i = 0; i < variablesTerminales.getSize(); i++) {
+        for (int i = 1; i < variablesTerminales.getSize(); i++) {
 
             nuevaVariable = clave + i;
             ListaCD<String> temp = new ListaCD();
@@ -279,7 +279,7 @@ public class FormaNormalChomsky {
         
         }
         
-        s += "}," + this.sigmaActual + "} \n";
+        s += "},ς" + this.sigmaActual + "} \n";
         
         return s;
         
@@ -288,7 +288,7 @@ public class FormaNormalChomsky {
     public void generarSigma(String proceso)
     {
     
-        String sigma = proceso;
+        String sigma = proceso + "\n";
         
         this.sigmaActual++;
         
